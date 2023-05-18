@@ -102,6 +102,12 @@ def parse_options():
                           "(default CN=Certificate Authority,O=<realm-name>). "
                           "RDNs are in LDAP order (most specific RDN first)."))
 
+    parser.add_option("--ca-install-port", dest="ca_install_port",
+                      default=8080,
+                      help=(
+                          "The CA installation port used for dogtag "
+                          "(default 8080). "))
+
     parser.add_option("--pki-config-override", dest="pki_config_override",
                       default=None,
                       help="Path to ini file with config overrides.")
