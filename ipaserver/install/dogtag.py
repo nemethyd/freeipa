@@ -35,3 +35,15 @@ class DogtagInstallInterface(service.ServiceInstallInterface):
     def pki_config_override(self, value):
         if value is not None:
             PKIIniLoader.verify_pki_config_override(value)
+    
+    ca_install_port = knob(
+        int, 8080,
+        description="the dogtag web port (defaults to 8080).",
+        cli_names='--ca-install-port',
+        cli_metavar = 'PORT'
+    )
+
+    @ca_install_port.validator
+    def ca_install_port(self, value):
+        if value < 1:
+            raise ValueError("expects an integer greater than 0.")
