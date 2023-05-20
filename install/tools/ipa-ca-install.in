@@ -102,7 +102,7 @@ def parse_options():
                           "(default CN=Certificate Authority,O=<realm-name>). "
                           "RDNs are in LDAP order (most specific RDN first)."))
 
-    parser.add_option("--ca-install-port", dest="ca_install_port",
+    parser.add_option("--ca-port", dest="ca_install_port",
                       default=8080,
                       help=(
                           "The CA installation port used for dogtag "
