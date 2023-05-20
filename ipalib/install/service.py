@@ -154,6 +154,20 @@ class ServiceInstallInterface(common.Installable,
         description="Directory Manager password (for the existing master)",
     )
 
+    ca_port = knob(
+        int, 8080,
+        description="Specifies the insecure CA end user port."
+                    "The default is 8080.",
+        cli_names='--ca-port',
+        cli_metavar='PORT',
+    )
+
+    @ca_port.validator
+    def ca_install_port(self, value):
+        if value < 1:
+            raise ValueError("expects an integer greater than 0.")
+
+
 
 class ServiceAdminInstallInterface(ServiceInstallInterface):
     """
