@@ -163,7 +163,7 @@ class ServiceInstallInterface(common.Installable,
     )
 
     @ca_port.validator
-    def ca_install_port(self, value):
+    def ca_port(self, value):
         if value < 1:
             raise ValueError("expects an integer greater than 0.")
 
