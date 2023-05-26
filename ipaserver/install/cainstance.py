@@ -86,13 +86,13 @@ ACME_CONFIG_FILES = (
 )
 
 
-def check_ports():
-    """Check that dogtag ports (8080, 8443) are available.
+def check_ports(ca_insecure_port):
+    """Check that dogtag ports: ca_insecure_port (defaults to 8080) and 8443 are available.
 
     Returns True when ports are free, False if they are taken.
     """
-    return all([ipautil.check_port_bindable(8443),
-                ipautil.check_port_bindable(8080)])
+    return all([ipautil.check_port_bindable(ca_insecure_port),
+                ipautil.check_port_bindable(8443)])
 
 
 def get_preop_pin(instance_root, instance_name):

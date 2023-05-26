@@ -270,6 +270,12 @@ class ServerInstallInterface(ServerCertificateInstallInterface,
     )
     setup_kra = enroll_only(setup_kra)
 
+    no_dns_config = knob(
+        None,
+        description="Do not configure the integrated DNS",
+    )
+    no_dns_config = master_install_only(no_dns_config)
+
     setup_dns = knob(
         None,
         description="configure bind with our zone",

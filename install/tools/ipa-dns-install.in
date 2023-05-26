@@ -44,6 +44,8 @@ def parse_options():
     parser = IPAOptionParser(version=version.VERSION)
     parser.add_option("-d", "--debug", dest="debug", action="store_true",
                       default=False, help="print debugging information")
+    parser.add_option("--no-dns-config", dest="no_dns_config", action="store_true",
+                      default=None, help="Do not configure the integrated DNS")
     parser.add_option("--ip-address", dest="ip_addresses", metavar="IP_ADDRESS",
                       default=[], action="append",
                       type="ip",

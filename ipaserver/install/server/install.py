@@ -477,7 +477,7 @@ def install_check(installer):
         except timeconf.NTPConfigurationError:
             pass
 
-    if not options.setup_dns and installer.interactive:
+    if not options.setup_dns and not options.no_dns_config and installer.interactive:
         if ipautil.user_input("Do you want to configure integrated DNS "
                               "(BIND)?", False):
             dns.package_check(ScriptError)
