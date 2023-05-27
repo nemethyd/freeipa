@@ -214,9 +214,9 @@ def ipaplatform_services_transform():
     from ipaplatform.base.services import timedate_services
     from ipaplatform.base.services import service
     from ipaplatform.base.services import wellknownservices
-    from ipaplatform.base.services import wellknownports
+    from ipaplatform.base.services import ServicePorts
     __all__ = ('knownservices', 'timedate_services', 'service',
-               'wellknownservices', 'wellknownports')
+               'wellknownservices', 'ServicePorts')
     '''))
 
 

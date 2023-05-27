@@ -58,12 +58,29 @@ wellknownservices = [
 
 # The common ports for these services. This is used to wait for the
 # service to become available.
-wellknownports = {
-    'dirsrv': [389],  # only used if the incoming instance name is blank
-    'pki-tomcatd@pki-tomcat.service': [8080, 8443],
-    'pki-tomcat': [8080, 8443],
-    'pki-tomcatd': [8080, 8443],  # used if the incoming instance name is blank
-}
+
+class ServicePorts:
+    def __init__(self):
+        self.wellknownports = {
+            'dirsrv': [389],  
+            'pki-tomcatd@pki-tomcat.service': [8080, 8443],
+            'pki-tomcat': [8080, 8443],
+            'pki-tomcatd': [8080, 8443]
+        }
+
+    def set_insecure_port(self, port):
+       self.wellknownports['pki-tomcatd@pki-tomcat.service'][0] = port
+       self.wellknownports['pki-tomcat'][0] = port
+       self.wellknownports['pki-tomcatd'][0] = port
+
+    def set_secure_port(self, port):
+       self.wellknownports['pki-tomcatd@pki-tomcat.service'][1] = port
+       self.wellknownports['pki-tomcat'][1] = port
+       self.wellknownports['pki-tomcatd'][1] = port
+
+    def get_ports(self):
+        return self.wellknownports
+
 
 SERVICE_POLL_INTERVAL = 0.1 # seconds
 
@@ -270,6 +287,7 @@ class SystemdService(PlatformService):
         If this is a service we need to wait for do so.
         """
         ports = None
+        wellknownports = ServicePorts().get_ports(self)
         if instance_name in wellknownports:
             ports = wellknownports[instance_name]
         else:

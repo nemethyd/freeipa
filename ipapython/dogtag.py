@@ -83,7 +83,7 @@ def error_from_xml(doc, message_template):
         return errors.RemoteRetrieveError(reason=message_template % e)
 
 
-def get_ca_certchain(ca_host=None):
+def get_ca_certchain(ca_host=None,ca_insecure_port=8080):
     """
     Retrieve the CA Certificate chain from the configured Dogtag server.
     """
@@ -92,7 +92,7 @@ def get_ca_certchain(ca_host=None):
     chain = None
     conn = httplib.HTTPConnection(
         ca_host,
-        api.env.ca_install_port or 8080)
+        api.env.ca_install_port or ca_insecure_port)
     conn.request("GET", "/ca/ee/ca/getCertChain")
     res = conn.getresponse()
     doc = None

@@ -50,11 +50,12 @@ class DebianSysvService(base_services.PlatformService):
         If this is a service we need to wait for do so.
         """
         ports = None
-        if instance_name in base_services.wellknownports:
-            ports = base_services.wellknownports[instance_name]
+        wellknownports = base_services.ServicePorts().get_ports(self)
+        if instance_name in wellknownports:
+            ports = wellknownports[instance_name]
         else:
-            if self.service_name in base_services.wellknownports:
-                ports = base_services.wellknownports[self.service_name]
+            if self.service_name in wellknownports:
+                ports = wellknownports[self.service_name]
         if ports:
             ipautil.wait_for_open_ports('localhost', ports, self.api.env.startup_timeout)
 
