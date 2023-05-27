@@ -186,7 +186,7 @@ def get_all_external_schema_files(root):
 
 class DsInstance(service.Service):
     def __init__(self, realm_name=None, domain_name=None, fstore=None,
-                 domainlevel=None, config_ldif=None, share_dir=None):
+                 domainlevel=None, config_ldif=None):
         super(DsInstance, self).__init__(
             "dirsrv",
             service_desc="directory server",
@@ -212,7 +212,6 @@ class DsInstance(service.Service):
         self.run_init_memberof = True
         self.config_ldif = config_ldif  # updates for dse.ldif
         self.domainlevel = domainlevel
-        self.share_dir = share_dir
         if realm_name:
             self.suffix = ipautil.realm_to_suffix(self.realm)
             self.serverid = ipaldap.realm_to_serverid(self.realm)
@@ -625,7 +624,7 @@ class DsInstance(service.Service):
         for schema_fname in IPA_SCHEMA_FILES:
             target_fname = schema_dirname(self.serverid) + schema_fname
             shutil.copyfile(
-                os.path.join(paths.USR_SHARE_IPA_DIR, schema_fname),
+                os.path.join(paths.USR_, schema_fname),
                 target_fname)
             os.chmod(target_fname, 0o440)    # read access for dirsrv user/group
             DS_USER.chown(target_fname)

@@ -344,21 +344,7 @@ class ServerInstallInterface(ServerCertificateInstallInterface,
     @dirsrv_config_file.validator
     def dirsrv_config_file(self, value):
         if not os.path.exists(value):
-            raise ValueError("File %s does not exist." % value)
-        
-    share_dir = knob(
-        str, paths.USR_SHARE_IPA_DIR,
-        description="The path to LDIF file that will be used to set up LDAP server"
-                    "defaults to {}".format(paths.USR_SHARE_IPA_DIR),
-        cli_metavar='FILE',
-    )
-
-    share_dir = enroll_only(share_dir)
-
-    @share_dir.validator
-    def share_dir(self, value):
-        if not os.path.exists(value):
-            raise ValueError("Directory %s does not exist." % value)
+            raise ValueError("File %s does not exist." % value)       
 
     def __init__(self, **kwargs):
         super(ServerInstallInterface, self).__init__(**kwargs)
