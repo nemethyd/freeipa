@@ -8,6 +8,8 @@ Server installer module
 import os.path
 import random
 
+from ipaplatform.paths import paths
+
 from ipaclient.install import client
 from ipalib import constants
 from ipalib.util import validate_domain_name
@@ -323,6 +325,12 @@ class ServerInstallInterface(ServerCertificateInstallInterface,
     )
     no_ui_redirect = enroll_only(no_ui_redirect)
 
+    skip_mem_check = knob(
+        None,
+        description="Skip checking for minimum required memory",
+    )
+    skip_mem_check = enroll_only(skip_mem_check)    
+    
     dirsrv_config_file = knob(
         str, None,
         description="The path to LDIF file that will be used to modify "
@@ -330,18 +338,27 @@ class ServerInstallInterface(ServerCertificateInstallInterface,
                     "directory server instance",
         cli_metavar='FILE',
     )
-    dirsrv_config_file = enroll_only(dirsrv_config_file)
 
-    skip_mem_check = knob(
-        None,
-        description="Skip checking for minimum required memory",
-    )
-    skip_mem_check = enroll_only(skip_mem_check)
+    dirsrv_config_file = enroll_only(dirsrv_config_file)
 
     @dirsrv_config_file.validator
     def dirsrv_config_file(self, value):
         if not os.path.exists(value):
             raise ValueError("File %s does not exist." % value)
+        
+    share_dir = knob(
+        str, paths.USR_SHARE_IPA_DIR,
+        description="The path to LDIF file that will be used to set up LDAP server"
+                    "defaults to {}".format(paths.USR_SHARE_IPA_DIR),
+        cli_metavar='FILE',
+    )
+
+    share_dir = enroll_only(share_dir)
+
+    @share_dir.validator
+    def share_dir(self, value):
+        if not os.path.exists(value):
+            raise ValueError("Directory %s does not exist." % value)
 
     def __init__(self, **kwargs):
         super(ServerInstallInterface, self).__init__(**kwargs)

@@ -186,7 +186,7 @@ def get_all_external_schema_files(root):
 
 class DsInstance(service.Service):
     def __init__(self, realm_name=None, domain_name=None, fstore=None,
-                 domainlevel=None, config_ldif=None):
+                 domainlevel=None, config_ldif=None, share_dir=None):
         super(DsInstance, self).__init__(
             "dirsrv",
             service_desc="directory server",
@@ -212,6 +212,7 @@ class DsInstance(service.Service):
         self.run_init_memberof = True
         self.config_ldif = config_ldif  # updates for dse.ldif
         self.domainlevel = domainlevel
+        self.share_dir = share_dir
         if realm_name:
             self.suffix = ipautil.realm_to_suffix(self.realm)
             self.serverid = ipaldap.realm_to_serverid(self.realm)
