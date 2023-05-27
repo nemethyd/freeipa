@@ -500,12 +500,11 @@ msgstr "Comandos sudo"
 
 #, python-format
 msgid ""
-"System encoding must be UTF-8, '%(encoding)s' is not supported. Set "
-"LC_ALL=\"C.UTF-8\", or LC_ALL=\"\" and LC_CTYPE=\"C.UTF-8\"."
+"System encoding must be UTF-8, '%(encoding)s' is not supported. Set LC_ALL="
+"\"C.UTF-8\", or LC_ALL=\"\" and LC_CTYPE=\"C.UTF-8\"."
 msgstr ""
-"O sistema de codificação deve ser UTF-8, não tendo suporte a "
-"\"%(encoding)s\". Defina LC_ALL=\"C.UTF-8\", ou LC_ALL=\"\" e LC_CTYPE=\"C."
-"UTF-8\"."
+"O sistema de codificação deve ser UTF-8, não tendo suporte a \"%(encoding)s"
+"\". Defina LC_ALL=\"C.UTF-8\", ou LC_ALL=\"\" e LC_CTYPE=\"C.UTF-8\"."
 
 #, python-format
 msgid "The certificate for %(ca)s is not available on this server."
