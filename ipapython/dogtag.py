@@ -36,14 +36,12 @@ from ipalib.text import _
 # pylint: enable=ipa-forbidden-import
 from ipapython import ipautil
 
-from six.moves import http_client as httplib
-
 # Python 3 rename. The package is available in "six.moves.http_client", but
 # pylint cannot handle classes from that 
-# try:
-#     import httplib
-# except ImportError:
-#     import http.client as httplib
+try:
+    import httplib
+except ImportError:
+    import http.client as httplib
 
 if six.PY3:
     unicode = str
@@ -85,7 +83,7 @@ def error_from_xml(doc, message_template):
         return errors.RemoteRetrieveError(reason=message_template % e)
 
 
-def get_ca_certchain(ca_host=None,ca_insecure_port=8080):
+def get_ca_certchain(ca_host=None,ca_insecure_port=None):
     """
     Retrieve the CA Certificate chain from the configured Dogtag server.
     """

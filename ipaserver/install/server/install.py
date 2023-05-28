@@ -349,6 +349,15 @@ def install_check(installer):
     dirsrv_ca_cert = None
     pkinit_ca_cert = None
 
+    ca_port = options.ca_port
+
+    """
+    Since the some of the functions called later do not allow to pass the ca_port 
+    value over function parameter, we use an environment variable to pass this information
+    e.g. to wait_for_open_ports
+    """
+    os.environ['CA_PORT'] = str(ca_port)
+
     if not options.skip_mem_check:
         installutils.check_available_memory(ca=options.setup_ca)
     tasks.check_ipv6_stack_enabled()
@@ -655,7 +664,8 @@ def install_check(installer):
         ipaconf.setOption('domain', domain_name),
         ipaconf.setOption('xmlrpc_uri', xmlrpc_uri),
         ipaconf.setOption('ldap_uri', ldapi_uri),
-        ipaconf.setOption('mode', 'production')
+        ipaconf.setOption('mode', 'production'),
+        ipaconf.setOption('ca_insecure_port', ca_port),
     ]
 
     if setup_ca:
@@ -726,6 +736,7 @@ def install_check(installer):
     print("IP address(es): %s" % ", ".join(str(ip) for ip in ip_addresses))
     print("Domain name:    %s" % domain_name)
     print("Realm name:     %s" % realm_name)
+    print("CA web port:    %s" % ca_port)
     print()
 
     if setup_ca:
@@ -809,6 +820,7 @@ def install(installer):
     host_name = options.host_name
     ip_addresses = options.ip_addresses
     setup_ca = options.setup_ca
+    ca_port = options.ca_port
 
     # Installation has started. No IPA sysrestore items are restored in case of
     # failure to enable root cause investigation
@@ -841,7 +853,7 @@ def install(installer):
         # chrony will be handled here in uninstall() method as well by invoking
         # the ipa-server-install --uninstall
         if not options.no_ntp and not sync_time(
-                options.ntp_servers, options.ntp_pool, fstore, sstore):
+                options.ntp_servers, options.ntp_pool, fstore, sstore, ca_port):
             print("Warning: IPA was unable to sync time with chrony!")
             print("         Time synchronization is required for IPA "
                   "to work correctly")

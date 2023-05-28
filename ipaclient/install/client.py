@@ -2604,7 +2604,7 @@ def update_ipa_nssdb():
                                    (nickname, sys_db.secdir, e))
 
 
-def sync_time(ntp_servers, ntp_pool, fstore, statestore):
+def sync_time(ntp_servers, ntp_pool, fstore, statestore, ca_port):
     """
     Will disable any other time synchronization service and configure chrony
     with given ntp(chrony) server and/or pool using Augeas.
