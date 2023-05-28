@@ -58,14 +58,15 @@ wellknownservices = [
 
 # The common ports for these services. This is used to wait for the
 # service to become available.
+default_ca_insecure_port = 8080
 
 class ServicePorts:
     def __init__(self):
         self.wellknownports = {
             'dirsrv': [389],  
-            'pki-tomcatd@pki-tomcat.service': [8080, 8443],
-            'pki-tomcat': [8080, 8443],
-            'pki-tomcatd': [8080, 8443]
+            'pki-tomcatd@pki-tomcat.service': [default_ca_insecure_port, 8443],
+            'pki-tomcat': [default_ca_insecure_port, 8443],
+            'pki-tomcatd': [default_ca_insecure_port, 8443]
         }
 
     def set_insecure_port(self, port):

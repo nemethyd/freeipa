@@ -86,8 +86,8 @@ ACME_CONFIG_FILES = (
 )
 
 
-def check_ports(ca_insecure_port=8080):
-    """Check that dogtag ports (, 8443) are available.
+def check_ports(ca_insecure_port):
+    """Check that dogtag ports (ca_insecure_port, 8443) are available.
 
     Returns True when ports are free, False if they are taken.
     """
