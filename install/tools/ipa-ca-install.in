@@ -101,7 +101,12 @@ def parse_options():
                           "The CA certificate subject DN "
                           "(default CN=Certificate Authority,O=<realm-name>). "
                           "RDNs are in LDAP order (most specific RDN first)."))
-
+    
+    parser.add_option("--ca-port", dest="ca_port",
+                      default=8080,
+                      help=(
+                          "The insecure web access port of CA (default 8080)"))
+    
     parser.add_option("--pki-config-override", dest="pki_config_override",
                       default=None,
                       help="Path to ini file with config overrides.")

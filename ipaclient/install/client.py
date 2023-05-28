@@ -3778,6 +3778,18 @@ class ClientInstallInterface(hostname_.HostNameInstallInterface,
     )
     keytab = enroll_only(keytab)
 
+    ca_port = knob(
+        int, 8080,
+        description="CA insecure web access port defaults to 8080"
+    )
+    
+    ca_port = enroll_only(ca_port)
+
+    @ca_port.validator
+    def ca_port(self, value):
+        if value < 1 or value > 65535:
+            raise ValueError("the port number must be an integer between 1 and 65535")
+
     mkhomedir = knob(
         None,
         description="create home directories for users on their first login",

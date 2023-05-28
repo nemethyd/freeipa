@@ -36,12 +36,14 @@ from ipalib.text import _
 # pylint: enable=ipa-forbidden-import
 from ipapython import ipautil
 
+from six.moves import http_client as httplib
+
 # Python 3 rename. The package is available in "six.moves.http_client", but
-# pylint cannot handle classes from that alias
-try:
-    import httplib
-except ImportError:
-    import http.client as httplib
+# pylint cannot handle classes from that 
+# try:
+#     import httplib
+# except ImportError:
+#     import http.client as httplib
 
 if six.PY3:
     unicode = str
