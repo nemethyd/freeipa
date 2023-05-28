@@ -136,7 +136,7 @@ def _parse_ca_status(body):
             raise error_from_xml(doc, _("Retrieving CA status failed: %s"))
 
 
-def ca_status(ca_host=None):
+def ca_status(ca_host=None,ca_insecure_port=8080):
     """Return the status of the CA, and the httpd proxy in front of it
 
     The returned status can be:
@@ -147,7 +147,7 @@ def ca_status(ca_host=None):
     if ca_host is None:
         ca_host = api.env.ca_host
     status, _headers, body = http_request(
-        ca_host, 8080, '/ca/admin/ca/getStatus',
+        ca_host, ca_insecure_port, '/ca/admin/ca/getStatus',
         # timeout: CA sometimes forgot to answer, we have to try again
         timeout=api.env.http_timeout)
     if status == 503:
