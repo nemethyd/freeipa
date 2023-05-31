@@ -240,6 +240,7 @@ class DogtagInstance(service.Service):
         self.restart('pki-tomcat')
 
     def start_instance(self):
+
         self.start('pki-tomcat')
 
     def stop_instance(self):
