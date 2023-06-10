@@ -55,11 +55,12 @@ def check_installed(subsystem):
         return False
 
 
-def get_conn(hostname, subsystem):
+def get_conn(hostname, port, subsystem):
     """Create a connection object
     """
     conn = PKIConnection(
         hostname=hostname,
+        port=port,
         subsystem=subsystem,
         cert_paths=paths.IPA_CA_CRT
     )
@@ -102,7 +103,7 @@ def main():
     api.bootstrap(confdir=paths.ETC_IPA, log=None)
     timeout = api.env.startup_timeout
 
-    conn = get_conn(api.env.host, subsystem=SUBSYSTEM)
+    conn = get_conn(api.env.host, port=str(api.env.ca_insecure_port), subsystem=SUBSYSTEM)
     end = curtime() + timeout
     while curtime() < end:
         try:

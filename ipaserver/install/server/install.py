@@ -881,7 +881,8 @@ def install(installer):
                                subject_base=options.subject_base,
                                ca_subject=options.ca_subject,
                                hbac_allow=not options.no_hbac_allow,
-                               setup_pkinit=not options.no_pkinit)
+                               setup_pkinit=not options.no_pkinit,
+                               )
 
     else:
         api.Backend.ldap2.connect()
@@ -922,7 +923,6 @@ def install(installer):
             cache_vars = {n: options.__dict__[n] for o, n in installer.knobs()
                           if n in options.__dict__}
             write_cache(cache_vars)
-
         ca.install_step_0(False, None, options, custodia=custodia)
     else:
         # /etc/ipa/ca.crt is created as a side-effect of

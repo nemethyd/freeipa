@@ -299,7 +299,8 @@ class DsInstance(service.Service):
                         dm_password, pkcs12_info=None,
                         idstart=1100, idmax=999999,
                         subject_base=None, ca_subject=None,
-                        hbac_allow=True, ca_file=None, setup_pkinit=False):
+                        hbac_allow=True, ca_file=None, setup_pkinit=False,
+                        ):
         self.init_info(
             realm_name, fqdn, domain_name, dm_password,
             subject_base, ca_subject,

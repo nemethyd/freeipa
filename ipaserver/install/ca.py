@@ -344,6 +344,7 @@ def install_step_0(standalone, replica_config, options, custodia):
     ca_subject = options._ca_subject
     subject_base = options._subject_base
     external_ca_profile = None
+    ca_port = options.ca_port
 
     if replica_config is None:
         ca_signing_algorithm = options.ca_signing_algorithm
@@ -420,6 +421,7 @@ def install_step_0(standalone, replica_config, options, custodia):
         use_ldaps=use_ldaps,
         pki_config_override=options.pki_config_override,
         random_serial_numbers=options._random_serial_numbers,
+        ca_port=ca_port,
     )
 
 

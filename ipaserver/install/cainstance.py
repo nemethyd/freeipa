@@ -346,7 +346,8 @@ class CAInstance(DogtagInstance):
                            ra_p12=None, ra_only=False,
                            promote=False, use_ldaps=False,
                            pki_config_override=None,
-                           random_serial_numbers=False):
+                           random_serial_numbers=False,
+                           ca_port=None):
         """Create a CA instance.
 
            To create a clone, pass in pkcs12_info.
@@ -387,6 +388,7 @@ class CAInstance(DogtagInstance):
             self.ca_type = x509.ExternalCAType.GENERIC.value
         self.external_ca_profile = external_ca_profile
         self.random_serial_numbers = random_serial_numbers
+        self.ca_port = ca_port
 
         self.no_db_setup = promote
         self.use_ldaps = use_ldaps
@@ -521,6 +523,9 @@ class CAInstance(DogtagInstance):
         cfg = dict(
             pki_ds_secure_connection=self.use_ldaps
         )
+
+        if self.ca_port is not None:
+            cfg['pki_http_port'] = self.ca_port
 
         if self.ca_signing_algorithm is not None:
             cfg['ipa_ca_signing_algorithm'] = self.ca_signing_algorithm
