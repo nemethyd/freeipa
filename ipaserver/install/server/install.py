@@ -665,7 +665,7 @@ def install_check(installer):
         ipaconf.setOption('xmlrpc_uri', xmlrpc_uri),
         ipaconf.setOption('ldap_uri', ldapi_uri),
         ipaconf.setOption('mode', 'production'),
-        ipaconf.setOption('ca_insecure_port', ca_port),
+        ipaconf.setOption('ca_install_port', ca_port),
     ]
 
     if setup_ca:

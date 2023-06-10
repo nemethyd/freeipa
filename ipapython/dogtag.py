@@ -83,7 +83,7 @@ def error_from_xml(doc, message_template):
         return errors.RemoteRetrieveError(reason=message_template % e)
 
 
-def get_ca_certchain(ca_host=None,ca_insecure_port=None):
+def get_ca_certchain(ca_host=None,ca_install_port=None):
     """
     Retrieve the CA Certificate chain from the configured Dogtag server.
     """
@@ -92,7 +92,7 @@ def get_ca_certchain(ca_host=None,ca_insecure_port=None):
     chain = None
     conn = httplib.HTTPConnection(
         ca_host,
-        api.env.ca_install_port or ca_insecure_port)
+        api.env.ca_install_port)
     conn.request("GET", "/ca/ee/ca/getCertChain")
     res = conn.getresponse()
     doc = None
@@ -136,7 +136,7 @@ def _parse_ca_status(body):
             raise error_from_xml(doc, _("Retrieving CA status failed: %s"))
 
 
-def ca_status(ca_host=None,ca_insecure_port=8080):
+def ca_status(ca_host=None,ca_install_port=8080):
     """Return the status of the CA, and the httpd proxy in front of it
 
     The returned status can be:
@@ -147,7 +147,7 @@ def ca_status(ca_host=None,ca_insecure_port=8080):
     if ca_host is None:
         ca_host = api.env.ca_host
     status, _headers, body = http_request(
-        ca_host, ca_insecure_port, '/ca/admin/ca/getStatus',
+        ca_host, ca_install_port, '/ca/admin/ca/getStatus',
         # timeout: CA sometimes forgot to answer, we have to try again
         timeout=api.env.http_timeout)
     if status == 503:

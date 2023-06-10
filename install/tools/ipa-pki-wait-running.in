@@ -103,7 +103,7 @@ def main():
     api.bootstrap(confdir=paths.ETC_IPA, log=None)
     timeout = api.env.startup_timeout
 
-    conn = get_conn(api.env.host, port=str(api.env.ca_insecure_port), subsystem=SUBSYSTEM)
+    conn = get_conn(api.env.host, port=str(api.env.ca_install_port), subsystem=SUBSYSTEM)
     end = curtime() + timeout
     while curtime() < end:
         try:

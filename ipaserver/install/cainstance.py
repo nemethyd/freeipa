@@ -86,13 +86,13 @@ ACME_CONFIG_FILES = (
 )
 
 
-def check_ports(ca_insecure_port):
-    """Check that dogtag ports (ca_insecure_port, 8443) are available.
+def check_ports(ca_install_port):
+    """Check that dogtag ports (ca_install_port, 8443) are available.
 
     Returns True when ports are free, False if they are taken.
     """
     return all([ipautil.check_port_bindable(8443),
-                ipautil.check_port_bindable(ca_insecure_port)])
+                ipautil.check_port_bindable(ca_install_port)])
 
 
 def get_preop_pin(instance_root, instance_name):
@@ -830,7 +830,7 @@ class CAInstance(DogtagInstance):
 
     def __get_ca_chain(self):
         try:
-            return dogtag.get_ca_certchain(ca_host=self.fqdn,ca_insecure_port=self.ca_port)
+            return dogtag.get_ca_certchain(ca_host=self.fqdn,ca_install_port=self.ca_port)
         except Exception as e:
             raise RuntimeError("Unable to retrieve CA chain: %s" % str(e))
 
