@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Remote Debug",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "python": "/usr/bin/python3",
+            "args": [
+                // "--uninstall",
+                "--unattended",
+                "--domain=dev.kafir.police.hu",
+                "--realm=DEV.KAFIR.POLICE.HU",
+                "--netbios-name=DEVKAFIR",
+                "--ds-password=DirMan99",
+                "--admin-password=IpaAdmin",
+                "--ca-port=8282",
+                // "--external-ca",
+            ],
+            "sudo": true,
+            "env":{"PYTHONPATH": "${workspaceFolder}:${workspaceFolder}/ipaserver:${workspaceFolder}/ipaplatform:${workspaceFolder}/install/tools:${workspaceFolder}/install/restart_scripts"},
+            "justMyCode":false,
+        }
+    ]
+}
