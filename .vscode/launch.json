@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "python": "/home/nemethy/.local/bin/python3.9",
+            "python": "/usr/bin/python3.9",
             "args": [
                 "--uninstall",
                 "--unattended",
